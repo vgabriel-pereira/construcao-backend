@@ -1,5 +1,10 @@
+
+const router = require('./routerTarefas.js')
 // importa o fremawork
 const express = require("express");
+
+//importar middleware de terceiros
+const cors = require("cors");
 
 //cria uma instacia da aplicação
 const app = express();
@@ -9,23 +14,14 @@ app.use((req, res, next) => {
   console.log("Passei aqui");
   next();
 });
+//middleware embutido ou integrado
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+//middleware de terceiros
+app.use(cors());
 
 // middleware de route
-const router = express.Router();
-
-router.get("/", (req, res) => {
-  res.send("Chegou aqui");
-});
-
-router.post("/", (req, res) => {
-  res.status(201).send("inserido com sucesso");
-});
-
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  if (id == 1) return res.send("Achei");
-  throw Error("Não achei");
-});
 
 app.use("/teste", router);
 
