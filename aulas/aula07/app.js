@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 
-
 const routerTarefas = require('./routes/tarefas.router')
 const indexRouter = require("./routes/index");
 
