@@ -1,0 +1,14 @@
+db.usuarios.find({nome: "Gabriel})
+db.usuarios.find({})
+show collections
+db.usuarios.insertOne({nome: "Gabriel", email: "Minha@iesb"})
+show dbs
+use meubanco
+show collections
+use admin
+show collections
+show dbs
+show bbs
+use meubanco
+use local
+show dbs
