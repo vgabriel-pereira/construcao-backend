@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const { options } = require("../app");
 const tarefa = require("../models/tarefaModel");
 
@@ -17,7 +17,8 @@ async function criar(req, res) {
     const novaTarefa = await tarefa.create({ nome, concluida: false });
     return res.status(201).json(novaTarefa);
   } catch (err) {
-    if(err.errors) return res.status(422).json({msg: err.errors['nome'].message})
+    if (err.errors)
+      return res.status(422).json({ msg: err.errors["nome"].message });
     return res.status(500).json({ msg: "Deu ruim!!" + err.message });
   }
 }
@@ -26,7 +27,8 @@ async function buscar(req, res, next) {
   try {
     const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({msg: "ID Invalido"})
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(400).json({ msg: "ID Invalido" });
 
     const tarefaEncontrada = await tarefa.findOne({ _id: id });
 
@@ -45,11 +47,13 @@ async function atualizar(req, res) {
     const tarefaAtualizada = await tarefa.findOneAndUpdate(
       { _id: id },
       { ...req.body },
-      {new: true}
+      { new: true, runValidators: true }
     );
     return res.status(200).json(tarefaAtualizada);
   } catch (err) {
-    res.status(500).json({ msg: "Deu ruim!!" + err.message });
+    if (err.errors)
+      return res.status(422).json({ msg: err.errors["nome"].message });
+    return res.status(500).json({ msg: "Deu ruim!!" + err.message });
   }
 }
 

@@ -16,5 +16,5 @@ app.use(cookieParser());
 
 app.use("/", indexRouter);
 app.use('/tarefas', routerTarefas)
-
+app.listen(3000, () => console.log("Server On!"));
 module.exports = app;

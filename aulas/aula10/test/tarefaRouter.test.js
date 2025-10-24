@@ -66,6 +66,11 @@ describe("Teste do recuso /tarefas", () => {
     expect(response.body.concluida).toBe(true);
   });
 
+  test("PUT /id deve retornar 422", async()=>{
+    const response = await request.put(`${url}/${id}`).send({nome: "", concluida: true})
+    expect(response.status).toBe(422)
+  })
+
   test("DELETE / deve retornar 204", async () => {
     const response = await request.delete(`${url}/${id}`);
     expect(response.status).toBe(204);
